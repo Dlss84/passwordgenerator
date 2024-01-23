@@ -1,0 +1,55 @@
+/* BOTON DE IDIOMAS*/
+.switch {
+  position: absolute;
+  margin-top: -15px;
+  right: 0px;
+  
+}
+
+.peruIcon {
+  width: 70px;
+  height: 50%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.kingIcon {
+  width: 70px;
+  height: 50%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.lbl-switch {
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  background: #aaa;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+}
+
+#btn-switch:checked ~ .lbl-switch {
+  background: #61a0ff;
+}
+
+.lbl-switch:after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 22px;
+  background: #fff;
+  border-radius: 100px;
+  top: 4px;
+  left: 3px;
+  transition: 0.3s;
+}
+
+#btn-switch:checked ~ .lbl-switch:after {
+  left: 28px;
+}
+
+#btn-switch {
+  display: none;
+}

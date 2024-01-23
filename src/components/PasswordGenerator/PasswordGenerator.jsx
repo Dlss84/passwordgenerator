@@ -1,11 +1,14 @@
 import React from "react";
 import "./PasswordGenerator.css";
 import copyIcon from "../assets/copy-icon.svg";
+import Switch from "../Switch/Switch";
 
 function PasswordGenerator() {
   return (
     <div className="container">
-      <div className="language">Idiomas</div>
+      <div className="switch">
+        <Switch />
+      </div>
       <h2 className="title">Generador de Contraseña Segura</h2>
       <div className="password-wrapper">
         <div className="password-area">
