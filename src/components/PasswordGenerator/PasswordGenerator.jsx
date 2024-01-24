@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PasswordGenerator.css";
 import copyIcon from "../assets/copy-icon.svg";
 import Switch from "../Switch/Switch";
@@ -16,7 +16,28 @@ function PasswordGenerator() {
   const [numbers,setNumbers] = useState(true);
   const [symbols,setSymbols] = useState(true);
   const [passwordLength,setPasswordLength] = useState(8);
+  const [selectedChoices, setSelectedChoices] = useState(['lowercase', 'uppercase', 'numbers', 'symbols']);
 
+    useEffect(() => {
+        generatePassword();
+    },[passwordLength]);
+
+    const handleCheckbox = (type) => {
+        let tempChoices = selectedChoices;
+        if(tempChoices.includes(type)){
+            const index = tempChoices.indexOf(type);
+            tempChoices.splice(index,1);
+        }
+        else{
+            tempChoices.push(type);
+        }
+        console.log(tempChoices);
+        setSelectedChoices(tempChoices);
+    }
+
+  useEffect(() => {
+    generatePassword();
+},[passwordLength]);
   const generatePassword =()=>{
     let characterList='';
     if(lowerCase){
@@ -85,21 +106,21 @@ function PasswordGenerator() {
           <div className="checkboxes">
             <div className="left">
               <div className="checkbox-field">
-                <input type="checkbox" name="lower" id="lower" checked={lowerCase} onChange={() => setLowerCase(!lowerCase)}/>
+                <input type="checkbox" name="lower" id="lower" checked={lowerCase} disabled={selectedChoices.length === 1 && selectedChoices.includes("lowercase")} onChange={() => { setLowerCase(!lowerCase); handleCheckbox('lowercase');}} />
                 <label htmlFor="lower">Incluir Letras Minúsculas (a-z)</label>
               </div>
               <div className="checkbox-field">
-                <input type="checkbox" name="upper" id="upper" checked={upperCase} onChange={() => setUpperCase(!upperCase)}/>
+                <input type="checkbox" name="upper" id="upper" checked={upperCase} disabled={selectedChoices.length === 1 && selectedChoices.includes('uppercase')} onChange={() => { setUpperCase(!upperCase); handleCheckbox('uppercase');}} />
                 <label htmlFor="upper">Incluir Letras Mayúsculas (A-Z)</label>
               </div>
             </div>
             <div className="right">
               <div className="checkbox-field">
-                <input type="checkbox" name="numbers" id="numbers" checked={numbers} onChange={() => setNumbers(!numbers)}/>
+                <input type="checkbox" name="numbers" id="numbers" checked={numbers} disabled={selectedChoices.length === 1 && selectedChoices.includes('numbers')} onChange={() => { setNumbers(!numbers); handleCheckbox('numbers');}} />
                 <label htmlFor="numbers">Incluir Números (0-9)</label>
               </div>
               <div className="checkbox-field">
-                <input type="checkbox" name="symbols" id="symbols" checked={symbols} onChange={() => setSymbols(!symbols)}/>
+                <input type="checkbox" name="symbols" id="symbols" checked={symbols} disabled={selectedChoices.length === 1 && selectedChoices.includes('symbols')} onChange={() => { setSymbols(!symbols); handleCheckbox('symbols');}} />
                 <label htmlFor="symbols">Incluir Simbolos (&-#)</label>
               </div>
             </div>
