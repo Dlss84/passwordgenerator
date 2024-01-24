@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PasswordGenerator.css";
 import copyIcon from "../assets/copy-icon.svg";
 import Switch from "../Switch/Switch";
+import { ToastContainer, toast } from 'react-toastify';
 
 const lowercaseList = 'abcdefghijklmnopqrstuvwxyz';
 const uppercaseList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -44,12 +45,23 @@ function PasswordGenerator() {
 
   const copyPassword = async ()=>{
     const copiedTetx = await navigator.clipboard.readText();
-    if(password.length){
+    if(password.length && copiedTetx !== password){
       navigator.clipboard.writeText(password)
+      toast.success('😎 Contraseña copiada 😎', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   }
 
   return (
+    <>
     <div className="container">
       <div className="switch">
         <Switch />
@@ -63,7 +75,7 @@ function PasswordGenerator() {
               placeholder="Haga Click copiar la Contraseña"
               disabled
             />
-            <img src={copyIcon} alt="copyicon" className="copyIcon" />
+            <img src={copyIcon} alt="copyicon" className="copyIcon" onClick={copyPassword}/>
           </div>
         </div>
       </div>
@@ -107,7 +119,10 @@ function PasswordGenerator() {
         <button type="button" onClick={copyPassword}>Copiar Contraseña</button>
         <button type="button" onClick={generatePassword}>Generar Contraseña</button>
       </div>
-    </div>
+      </div>
+      <ToastContainer/>
+    
+    </>
   );
 }
 
