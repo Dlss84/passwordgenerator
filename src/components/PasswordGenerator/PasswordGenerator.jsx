@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./PasswordGenerator.css";
 import copyIcon from "../assets/copy-icon.svg";
-import Switch from "../Switch/Switch";
+import peruIcon from "../assets/peru.svg";
+import kingIcon from "../assets/king.svg";
+
 import { ToastContainer, toast } from 'react-toastify';
 
 const lowercaseList = 'abcdefghijklmnopqrstuvwxyz';
@@ -35,9 +37,7 @@ function PasswordGenerator() {
         setSelectedChoices(tempChoices);
     }
 
-  useEffect(() => {
-    generatePassword();
-},[passwordLength]);
+
   const generatePassword =()=>{
     let characterList='';
     if(lowerCase){
@@ -84,8 +84,9 @@ function PasswordGenerator() {
   return (
     <>
     <div className="container">
-      <div className="switch">
-        <Switch />
+      <div className="flags">
+        <img src={peruIcon} alt="peruicon" className="peruIcon" />
+        <img src={kingIcon} alt="kingicon" className="kingIcon" />
       </div>
       <h2 className="title">Generador de Contraseña Segura</h2>
       <div className="password-wrapper">
